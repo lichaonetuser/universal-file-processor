@@ -1,6 +1,6 @@
 ---
 name: universal-file-processor
-description: "通用文件处理技能 - 大文件输入处理、大文件处理、防止输出疲劳的三合一技能"
+description: "大文件自动拆分处理技能 - 当文件超过模型处理能力时自动拆分并分批处理。AI可以自动调用此技能来处理大型Markdown文件、大型代码文件、批量数据集，以及优化长输出防止模型疲劳。"
 homepage: "https://github.com/openclaw/universal-file-processor"
 metadata:
   {
@@ -51,6 +51,84 @@ Universal File Processor是一个三合一的通用文件处理技能，整合�
 - 长文档分析
 - 批量数据处理
 - 防止模型输出疲劳
+
+---
+
+## 🎯 Use When / 使用时机
+
+**English**:
+AI should automatically invoke this skill when:
+
+1. **Processing Large Files**: When the user asks to analyze, process, or refactor a file that exceeds the model's processing capacity (typically >500 lines or >50KB)
+2. **Batch Data Processing**: When the user needs to process large datasets or multiple files that would overwhelm the model
+3. **Output Optimization**: When the model generates a very long output that needs optimization to prevent fatigue
+4. **File Size Detection**: When the AI needs to check if a file is too large to process in one go
+5. **Context Preservation**: When the AI needs to maintain context across multiple file parts
+
+**中文**:
+AI应该在以下情况自动调用此技能：
+
+1. **处理大文件时**: 当用户要求分析、处理或重构超过模型处理能力的文件时（通常>500行或>50KB）
+2. **批量数据处理时**: 当用户需要处理大型数据集或多个文件，这些文件会压倒模型时
+3. **输出优化时**: 当模型生成了非常长的输出，需要优化以防止疲劳时
+4. **文件大小检测时**: 当AI需要检查文件是否太大而无法一次性处理时
+5. **上下文保留时**: 当AI需要在多个文件部分之间保持上下文时
+
+**Trigger Examples / 触发示例**:
+
+**English**:
+```
+User: "Analyze this 1100-line documentation file"
+  ↓
+AI: Detects file is too large
+  ↓
+AI: Automatically calls universal-file-processor.sh
+  ↓
+Skill: Automatically checks file size
+  ↓
+Skill: Automatically splits file into 4 parts
+  ↓
+AI: Processes each part sequentially
+  ↓
+AI: Merges results
+  ↓
+AI: Returns complete analysis to user
+```
+
+**中文**:
+```
+用户: "分析这个1100行的文档文件"
+  ↓
+AI: 检测到文件太大
+  ↓
+AI: 自动调用 universal-file-processor.sh
+  ↓
+技能: 自动检查文件大小
+  ↓
+技能: 自动拆分文件成4个部分
+  ↓
+AI: 顺序处理每个部分
+  ↓
+AI: 合并结果
+  ↓
+AI: 返回完整分析给用户
+```
+
+**Key Indicators / 关键指标**:
+
+**English**:
+- File has >500 lines
+- File has >50,000 characters
+- Estimated tokens >30,000
+- Output length >10,000 tokens
+- User mentions "large file", "big file", "too long", "split", "chunk", "batch"
+
+**中文**:
+- 文件有>500行
+- 文件有>50,000字符
+- 估算token数>30,000
+- 输出长度>10,000 tokens
+- 用户提到"大文件"、"大文件"、"太长"、"拆分"、"分块"、"批量"
 
 ---
 
