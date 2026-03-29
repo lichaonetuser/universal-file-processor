@@ -6,7 +6,7 @@
 [![OpenClaw Skill](https://img.shields.io/badge/OpenClaw-Skill-blue.svg)](https://github.com/openclaw/openclaw)
 [![Version](https://img.shields.io/badge/Version-1.0-green.svg)](https://github.com/lichaonetuser/universal-file-processor)
 
-**🌐 [中文版本 / Chinese Version](https://github.com/lichaonetuser/universal-file-processor/blob/main/README.md)**
+**🌐 [Chinese Version / 中文版本](https://github.com/lichaonetuser/universal-file-processor/blob/main/README.md)**
 
 ---
 
@@ -17,11 +17,99 @@ Universal File Processor is a comprehensive file processing skill for OpenClaw t
 - ✅ **Large File Processing**: Process large files in batches
 - ✅ **Output Fatigue Prevention**: Optimize output to prevent model fatigue
 
-**Perfect for**:
-- Large Markdown file analysis
-- Large code file refactoring
-- Batch data processing
-- Output optimization
+---
+
+## 🎯 Why Do You Need This Skill?
+
+### Problem Background
+
+When working with large files in AI systems, several challenges arise:
+
+1. **Attention Decay**: As models process longer texts, their attention to earlier content diminishes
+2. **Context Loss**: Cross-file references and consistency checks become error-prone
+3. **Structural Confusion**: Without clear segmentation markers, models struggle to maintain logical coherence
+4. **Output Fatigue**: Long outputs can overwhelm both the model and the user
+
+### Solution
+
+Universal File Processor addresses these challenges by:
+
+1. **Smart Detection**: Automatically detects when files exceed processing limits
+2. **Intelligent Splitting**: Splits files by logical blocks (chapters, functions, etc.)
+3. **Batch Processing**: Processes parts sequentially while maintaining context
+4. **Output Optimization**: Reduces token usage and prevents fatigue
+
+---
+
+## 🎯 Use Cases
+
+### 1. Large Markdown File Analysis
+
+**Scenario**: You have a 1100-line documentation file that needs analysis.
+
+**Problem**: The file is too large for the model to process in one go, leading to:
+- Incomplete analysis
+- Missed details
+- Inconsistent understanding
+
+**Solution**: Use Universal File Processor to split the file by chapters, process each part, and merge results.
+
+**Example**:
+```bash
+# Analyze a 1100-line documentation file
+./skill.sh process /path/to/docs.md
+```
+
+### 2. Large Code File Refactoring
+
+**Scenario**: You need to refactor a 1500-line C code file.
+
+**Problem**: The code file is too large, making it difficult to:
+- Understand the overall structure
+- Identify refactoring opportunities
+- Maintain consistency across the file
+
+**Solution**: Split the file by functions, refactor each part, and merge results.
+
+**Example**:
+```bash
+# Refactor a 1500-line C file
+./skill.sh process /path/to/code.c
+```
+
+### 3. Batch Data Processing
+
+**Scenario**: You need to process a large dataset (2MB CSV file).
+
+**Problem**: The dataset is too large to process in one go, causing:
+- Memory issues
+- Processing timeouts
+- Incomplete results
+
+**Solution**: Split the dataset into chunks, process each chunk, and merge results.
+
+**Example**:
+```bash
+# Process a large dataset
+./skill.sh process /path/to/dataset.csv
+```
+
+### 4. Output Optimization
+
+**Scenario**: The model generates a very long output that needs optimization.
+
+**Problem**: Long outputs can:
+- Overwhelm the user
+- Contain redundant information
+- Be difficult to read
+
+**Solution**: Use output optimization to segment and condense the output.
+
+**Example**:
+```bash
+# Optimize long output to prevent fatigue
+./skill.sh optimize /path/to/long-output.md
+```
 
 ---
 
@@ -40,21 +128,168 @@ cd universal-file-processor
 ./install.sh
 ```
 
-### Basic Usage
+---
 
+## 📖 Detailed Usage
+
+### 1. Check File Size
+
+**Command**: `./skill.sh check <file>`
+
+**Function**: Detect file size, estimate token count, and determine if splitting is needed
+
+**Parameters**:
+- `<file>`: Path to the file to check
+
+**Output**:
+```
+📊 File Analysis: /path/to/file.md
+  Lines: 1100
+  Characters: 85000
+  Estimated Tokens: ~42500
+  Status: ⚠️  EXCEEDS_LIMIT (Recommended split)
+  Suggested Strategy: chapter
+```
+
+**Use Cases**:
+- Check file size before processing
+- Determine if splitting is needed
+- Choose appropriate splitting strategy
+
+**Example**:
 ```bash
 # Check file size
 ./skill.sh check /path/to/file.md
+```
 
+### 2. Split File
+
+**Command**: `./skill.sh split <file>`
+
+**Function**: Split file using default strategy
+
+**Parameters**:
+- `<file>`: Path to the file to split
+
+**Output**:
+```
+📦 Splitting file: /path/to/file.md
+  Strategy: chapter
+  Parts: 4
+  Output: /tmp/universal-file-processor/file_001.md
+          /tmp/universal-file-processor/file_002.md
+          /tmp/universal-file-processor/file_003.md
+          /tmp/universal-file-processor/file_004.md
+✅ Split complete
+```
+
+**Use Cases**:
+- When file exceeds processing limits
+- When batch processing is needed
+- When you want to split by logical blocks
+
+**Example**:
+```bash
 # Split file
 ./skill.sh split /path/to/file.md
+```
 
+### 3. Process File
+
+**Command**: `./skill.sh process <file>`
+
+**Function**: Automatically detect and process file (splits if needed)
+
+**Parameters**:
+- `<file>`: Path to the file to process
+
+**Output**:
+```
+⚠️  File exceeds limits, splitting...
+📦 Splitting file: /path/to/file.md
+  Strategy: chapter
+  Parts: 4
+✅ Split complete
+🔄 Processing 4 parts...
+  Processing part 1/4: /tmp/universal-file-processor/file_001.md
+    Lines: 275, Chars: 21250, Tokens: ~10625
+  Processing part 2/4: /tmp/universal-file-processor/file_002.md
+    Lines: 275, Chars: 21250, Tokens: ~10625
+  Processing part 3/4: /tmp/universal-file-processor/file_003.md
+    Lines: 275, Chars: 21250, Tokens: ~10625
+  Processing part 4/4: /tmp/universal-file-processor/file_004.md
+    Lines: 275, Chars: 21250, Tokens: ~10625
+✅ Processing complete
+💡 Next step: Merge results with: ./skill.sh merge /tmp/universal-file-processor/file_*.md
+```
+
+**Use Cases**:
+- When processing large files
+- When unsure if splitting is needed
+- When you want automated processing workflow
+
+**Example**:
+```bash
 # Process file
 ./skill.sh process /path/to/file.md
+```
 
+### 4. Optimize Output
+
+**Command**: `./skill.sh optimize <file>`
+
+**Function**: Optimize output to prevent model fatigue
+
+**Parameters**:
+- `<file>`: Path to the file to optimize
+
+**Output**:
+```
+🎯 Optimizing output: /path/to/output.md
+  Original length: 5000 tokens
+  Target length: 10000 tokens
+  Reduction: 30%
+  Strategy: smart-segmentation
+  Optimized length: 3500 tokens
+  Output: /tmp/universal-file-processor/optimized_output.md
+✅ Optimization complete
+```
+
+**Use Cases**:
+- When output is too long
+- When you need to reduce token usage
+- When you want to improve output quality
+
+**Example**:
+```bash
 # Optimize output
 ./skill.sh optimize /path/to/output.md
+```
 
+### 5. Merge Results
+
+**Command**: `./skill.sh merge <pattern>`
+
+**Function**: Merge processed results
+
+**Parameters**:
+- `<pattern>`: File pattern (e.g., `/tmp/universal-file-processor/file_*.md`)
+
+**Output**:
+```
+🔗 Merging results...
+  Parts: 4
+  Output: /tmp/universal-file-processor/merged_result.md
+✅ Merge complete
+```
+
+**Use Cases**:
+- After processing split files
+- When you need to merge results
+- When you want complete output
+
+**Example**:
+```bash
 # Merge results
 ./skill.sh merge /tmp/universal-file-processor/file_*.md
 ```
