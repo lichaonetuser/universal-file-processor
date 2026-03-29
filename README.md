@@ -17,6 +17,8 @@
 - ✅ **大文件处理**: 分批处理大文件
 - ✅ **防止输出疲劳**: 优化输出，避免模型疲劳
 
+**🤖 AI可以自动调用**: 这个技能可以被agent全程控制使用，无需人工干预。
+
 ---
 
 ## 🎯 为什么需要这个技能？
@@ -38,6 +40,131 @@
 2. **智能拆分**: 按逻辑块（章节、函数等）拆分文件
 3. **分批处理**: 顺序处理各部分，同时保持上下文
 4. **输出优化**: 减少token使用，防止疲劳
+
+---
+
+## 🤖 Agent自动调用
+
+### 工作原理
+
+**English**:
+Universal File Processor is designed to be fully controlled by AI agents. When an agent needs to process a large file, it can automatically invoke this skill without human intervention.
+
+**中文**:
+通用文件处理器设计为可以被AI agent全程控制使用。当agent需要处理大文件时，它可以自动调用这个技能，无需人工干预。
+
+### 自动化流程
+
+**English**:
+```
+User: "Analyze this 1100-line documentation file"
+  ↓
+AI Agent: Detects file is too large
+  ↓
+AI Agent: Automatically calls universal-file-processor.sh
+  ↓
+Skill: Automatically checks file size
+  ↓
+Skill: Automatically splits file into 4 parts
+  ↓
+AI Agent: Processes each part sequentially
+  ↓
+AI Agent: Merges results
+  ↓
+AI Agent: Returns complete analysis to user
+```
+
+**中文**:
+```
+用户: "分析这个1100行的文档文件"
+  ↓
+AI Agent: 检测到文件太大
+  ↓
+AI Agent: 自动调用 universal-file-processor.sh
+  ↓
+技能: 自动检查文件大小
+  ↓
+技能: 自动拆分文件成4个部分
+  ↓
+AI Agent: 顺序处理每个部分
+  ↓
+AI Agent: 合并结果
+  ↓
+AI Agent: 返回完整分析给用户
+```
+
+### Agent集成示例
+
+**English**:
+```bash
+# AI Agent automatically invokes the skill
+# AI Agent自动调用技能
+
+# Step 1: Check file size
+# 步骤1：检查文件大小
+FILE_SIZE=$(./skill.sh check "$FILE_PATH")
+
+# Step 2: If exceeds limit, split
+# 步骤2：如果超过限制，拆分
+if echo "$FILE_SIZE" | grep -q "EXCEEDS_LIMIT"; then
+  ./skill.sh split "$FILE_PATH"
+fi
+
+# Step 3: Process each part
+# 步骤3：处理每个部分
+for PART in /tmp/universal-file-processor/file_*.md; do
+  # AI Agent processes each part
+  # AI Agent处理每个部分
+  process_part "$PART"
+done
+
+# Step 4: Optimize output
+# 步骤4：优化输出
+./skill.sh optimize "$OUTPUT_PATH"
+
+# Step 5: Merge results
+# 步骤5：合并结果
+./skill.sh merge /tmp/universal-file-processor/file_*.md
+```
+
+**中文**:
+```bash
+# AI Agent自动调用技能
+
+# 步骤1：检查文件大小
+FILE_SIZE=$(./skill.sh check "$FILE_PATH")
+
+# 步骤2：如果超过限制，拆分
+if echo "$FILE_SIZE" | grep -q "EXCEEDS_LIMIT"; then
+  ./skill.sh split "$FILE_PATH"
+fi
+
+# 步骤3：处理每个部分
+for PART in /tmp/universal-file-processor/file_*.md; do
+  # AI Agent处理每个部分
+  process_part "$PART"
+done
+
+# 步骤4：优化输出
+./skill.sh optimize "$OUTPUT_PATH"
+
+# 步骤5：合并结果
+./skill.sh merge /tmp/universal-file-processor/file_*.md
+```
+
+### Agent控制的优势
+
+**English**:
+- ✅ **Fully Automated**: No human intervention required
+- ✅ **Intelligent Decision**: Agent decides when to split
+- ✅ **Context Preservation**: Agent maintains context across parts
+- ✅ **Optimal Results**: Agent ensures quality and consistency
+
+**中文**:
+- ✅ **完全自动化**: 无需人工干预
+- ✅ **智能决策**: Agent决定何时拆分
+- ✅ **上下文保留**: Agent在各部分之间保持上下文
+- ✅ **最优结果**: Agent确保质量和一致性
 
 ---
 

@@ -17,6 +17,8 @@ Universal File Processor is a comprehensive file processing skill for OpenClaw t
 - ✅ **Large File Processing**: Process large files in batches
 - ✅ **Output Fatigue Prevention**: Optimize output to prevent model fatigue
 
+**🤖 AI Can Automatically Invoke**: This skill can be fully controlled by AI agents without human intervention.
+
 ---
 
 ## 🎯 Why Do You Need This Skill?
@@ -38,6 +40,67 @@ Universal File Processor addresses these challenges by:
 2. **Intelligent Splitting**: Splits files by logical blocks (chapters, functions, etc.)
 3. **Batch Processing**: Processes parts sequentially while maintaining context
 4. **Output Optimization**: Reduces token usage and prevents fatigue
+
+---
+
+## 🤖 Agent Automatic Invocation
+
+### How It Works
+
+Universal File Processor is designed to be fully controlled by AI agents. When an agent needs to process a large file, it can automatically invoke this skill without human intervention.
+
+### Automated Workflow
+
+```
+User: "Analyze this 1100-line documentation file"
+  ↓
+AI Agent: Detects file is too large
+  ↓
+AI Agent: Automatically calls universal-file-processor.sh
+  ↓
+Skill: Automatically checks file size
+  ↓
+Skill: Automatically splits file into 4 parts
+  ↓
+AI Agent: Processes each part sequentially
+  ↓
+AI Agent: Merges results
+  ↓
+AI Agent: Returns complete analysis to user
+```
+
+### Agent Integration Example
+
+```bash
+# AI Agent automatically invokes the skill
+
+# Step 1: Check file size
+FILE_SIZE=$(./skill.sh check "$FILE_PATH")
+
+# Step 2: If exceeds limit, split
+if echo "$FILE_SIZE" | grep -q "EXCEEDS_LIMIT"; then
+  ./skill.sh split "$FILE_PATH"
+fi
+
+# Step 3: Process each part
+for PART in /tmp/universal-file-processor/file_*.md; do
+  # AI Agent processes each part
+  process_part "$PART"
+done
+
+# Step 4: Optimize output
+./skill.sh optimize "$OUTPUT_PATH"
+
+# Step 5: Merge results
+./skill.sh merge /tmp/universal-file-processor/file_*.md
+```
+
+### Benefits of Agent Control
+
+- ✅ **Fully Automated**: No human intervention required
+- ✅ **Intelligent Decision**: Agent decides when to split
+- ✅ **Context Preservation**: Agent maintains context across parts
+- ✅ **Optimal Results**: Agent ensures quality and consistency
 
 ---
 
